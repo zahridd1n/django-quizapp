@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% block content %}
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <h5 class="card-title">Quizlarim<span
+                                                        class="text-muted fw-normal ms-2">({{quizzes | length }})</span></h5>
+                                            </div>
+                                        </div><!-- end col -->
+                                        <div class="col-md-6">
+                                            <div class="d-flex flex-wrap align-items-start justify-content-md-end mt-2 mt-md-0 gap-2 mb-3">
+                                              
+                                                <div>
+                                                    <a href="#" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2" data-bs-toggle="modal" data-bs-target="#addContactModal"><i class="uil uil-plus me-1"></i>
+                                                        Quiz qo'shish
+                                                    </a>
+                                                </div>
+                                                <div class="dropdown">
+                                                    <a class="btn btn-link text-dark dropdown-toggle shadow-none" href="#"
+                                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="uil uil-ellipsis-h"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                    </ul>
+                                                    <!-- end ul -->
+                                                </div>
+                                            </div>
+                                        </div><!-- end col -->
+                                    </div><!-- end row -->
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="addContactModal" tabindex="-1" aria-labelledby="addContactModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog  modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <form method="post" action="{% url 'quiz_create' %}">{% csrf_token %}
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addContactModalLabel">Quiz Yaratish</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body p-4">
+                                                    <div>
+                                                        <div class="mb-3">
+                                                            <label for="addcontact-name-input" class="form-label">Nomi</label>
+                                                            <input type="text" class="form-control" id="addcontact-name-input" name="name" placeholder="Quiz nomini kiriitng">
+                                                        </div>
+                                                        <!-- <div class="mb-3">
+                                                            <label for="addcontact-designation-input" class="form-label">Designation</label>
+                                                            <input type="text" class="form-control" id="addcontact-designation-input" placeholder="Enter Designation">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="addcontact-file-input" class="form-label">User Image</label>
+                                                            <input type="file" class="form-control" id="addcontact-file-input">
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="addcontact-email-input" class="form-label">Email</label>
+                                                            <input type="email" class="form-control" id="addcontact-email-input" placeholder="Enter Email">
+                                                        </div> -->
+                                                    </div>
+                                                </div><!-- end modalbody -->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light w-sm" data-bs-dismiss="modal">Yopish</button>
+                                                    <button type="submit" class="btn btn-primary w-sm">Yaratish</button>
+                                                </div>
+                                                <!-- end modalfooter -->
+                                            </form>
+                                            </div>
+                                            <!-- end modal content -->
+                                        </div>
+                                    </div>
+                                    <!-- end modal -->
+                                    
+                                    <div class="row" >
+                                    {% for quiz in quizzes %} 
+                                        <div class="col-xl-4 col-sm-6" >
+                                            <div class="card" style="border: 1px solid #4E3365; border-radius: 12px;">
+                                                <div class="card-body p-4" >
+                                                    <div class="d-flex align-items-start">
+                                                        <div class="flex-grow-1 overflow-hidden">
+                                                            <h5 class="font-size-15 mb-1 text-truncate"><a
+                                                                    href="{% url 'quiz_detail' quiz.code %}" class="text-dark" >{{quiz.name}}</a></h5>
+                                                                <span class="badge badge-soft-success mb-0" >savolar soni: {{quiz.questions_count}}</span>
+                                                           
+                                                        </div>
+
+                                                        
+                                                        <div class="flex-shrink-0 dropdown">
+                                                            <a class="text-body dropdown-toggle font-size-16" href="#"
+                                                                role="button" data-bs-toggle="dropdown"
+                                                                aria-haspopup="true">
+                                                                <i class="icon-xs" data-feather="more-horizontal"></i>
+                                                            </a>
+                                                            <div class="dropdown-menu dropdown-menu-end">
+                                                                <a class="dropdown-item" href="#">Edit</a>
+                                                                <a class="dropdown-item" href="#">Action</a>
+                                                                <a class="dropdown-item" href="#">Remove</a>
+                                                            </div>
+                                                        </div><!-- end dropdown -->
+                                                    </div>
+                                                   
+                                                    <div class="pt-2">
+                                                        <a type="button" class="btn btn-soft-primary  text-truncate"><i class="mdi mdi-file-document-edit me-1 align-middle"></i> Tahrirlash</a>
+                                                        <a type="button" class="btn btn-soft-primary   text-truncate ms-2"><i class="mdi mdi-delete-empty me-1 align-middle"></i> O'chirish</a>
+                                                        <a type="button" href="{% url 'quiz_detail' quiz.code %}" class="btn btn-primary  text-truncate ms-2"><i class="bx bxs-detail
+                                                            me-1 align-middle"></i> O'tish</a>
+                                                    </div>
+                                                </div>
+                                                <!-- end card body -->
+                                            </div><!-- end card -->
+                                        </div><!-- end col -->
+                                    {% endfor %}
+                                    </div><!-- end row -->
+                                    <div class="row g-0 text-center text-sm-start">
+                                        <div class="col-sm-6">
+                                            <div>
+                                                <!-- <p class="mb-sm-0">Showing 1 to 10 of 57 entries</p> -->
+                                            </div>
+                                        </div>
+                                        <!-- end col -->
+                                        <div class="col-sm-6">
+                                            <ul
+                                                class="pagination pagination-rounded justify-content-center justify-content-sm-end mb-sm-0">
+                                                <li class="page-item disabled">
+                                                    <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">1</a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a href="#" class="page-link">2</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">3</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">4</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link">5</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div><!-- end col -->
+                                    </div><!-- end row -->
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+
+                </div> <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <script>document.write(new Date().getFullYear())</script> &copy; Quiz.
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-end d-none d-sm-block">
+                                Crafted with <i class="mdi mdi-heart text-danger"></i> by Zaxiriddin
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- end main content-->
+{% endblock %}
