@@ -57,13 +57,13 @@ class Option(CodeGenerate):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     is_correct = models.BooleanField(default=False)
 
-    def save(self, *args, **kwargs):
-        options = Option.objects.filter(question=self.question).count()
-        first = options == 0
-        second = self.is_correct
-
-        if (first and second) or (not first and not second):
-            super(Option, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     options = Option.objects.filter(question=self.question).count()
+    #     first = options == 0
+    #     second = self.is_correct
+    #
+    #     if (first and second) or (not first and not second):
+    #         super(Option, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name

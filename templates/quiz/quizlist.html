@@ -33,7 +33,7 @@
                                                         <i class="uil uil-ellipsis-h"></i>
                                                     </a>
                                                     <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Xarakatlar</a></li>
                                                     </ul>
                                                     <!-- end ul -->
                                                 </div>
@@ -104,18 +104,92 @@
                                                                 <i class="icon-xs" data-feather="more-horizontal"></i>
                                                             </a>
                                                             <div class="dropdown-menu dropdown-menu-end">
-                                                                <a class="dropdown-item" href="#">Edit</a>
-                                                                <a class="dropdown-item" href="#">Action</a>
-                                                                <a class="dropdown-item" href="#">Remove</a>
+                                                                <!-- <a class="dropdown-item" href="#">Edit</a> -->
+                                                                <a class="dropdown-item"  href="{% url 'questions' quiz.code %}"><i class="bx bxs-bulb me-1 align-middle"></i>Ishlash</a>
+                                                                <a type="button" data-bs-toggle="modal" data-bs-target="#editquizmodal{{quiz.id}}" class="dropdown-item text-truncate"><i class="mdi mdi-file-document-edit me-1 align-middle"></i> Tahrirlash</a>
+                                                                <a class="dropdown-item"  href="{% url 'quiz_delete' quiz.code %}"><i class="mdi mdi-delete-empty me-1 align-middle"></i>O'chirish</a>
+
                                                             </div>
                                                         </div><!-- end dropdown -->
                                                     </div>
                                                    
                                                     <div class="pt-2">
-                                                        <a type="button" class="btn btn-soft-primary  text-truncate"><i class="mdi mdi-file-document-edit me-1 align-middle"></i> Tahrirlash</a>
-                                                        <a type="button" class="btn btn-soft-primary   text-truncate ms-2"><i class="mdi mdi-delete-empty me-1 align-middle"></i> O'chirish</a>
-                                                        <a type="button" href="{% url 'quiz_detail' quiz.code %}" class="btn btn-primary  text-truncate ms-2"><i class="bx bxs-detail
-                                                            me-1 align-middle"></i> O'tish</a>
+                                                        <!-- <a type="button" data-bs-toggle="modal" data-bs-target="#editquizmodal{{quiz.id}}" class="btn btn-soft-primary  text-truncate"><i class="mdi mdi-file-document-edit me-1 align-middle"></i> Tahrirlash</a> -->
+                                                        <!-- <a type="button" class="btn btn-soft-primary   text-truncate ms-2"><i class="mdi mdi-delete-empty me-1 align-middle"></i> O'chirish</a> -->
+                                                        <a type="button" href="{% url 'answer_list' quiz.code %}"  class="btn btn-soft-primary   text-truncate ms-2"><i class="mdi mdi-arrow-right-thin-circle-outline me-1 align-middle"></i>Javoblar</a>
+                                                        <a type="button" data-bs-target="#quizlinkmodal{{quiz.id}}" data-bs-toggle="modal"  class="btn btn-soft-primary   text-truncate ms-2"><i class="mdi mdi-link me-1 align-middle"></i> ulashish</a>
+                                                        <a type="button" href="{% url 'quiz_detail' quiz.code %}" class="btn btn-primary  text-truncate ms-2"><i class="bx bxs-detail me-1 align-middle"></i>Savollar</a>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="editquizmodal{{quiz.id}}" tabindex="-1" aria-labelledby="addContactModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog  modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <form method="post" action="{% url 'quiz_edit' quiz.code %}">{% csrf_token %}
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="addContactModalLabel">Quiz tahrirlash</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body p-4">
+                                                                <div>
+                                                                    <div class="mb-3">
+                                                                        <label for="addcontact-name-input" class="form-label">Nomi</label>
+                                                                        <input type="text" class="form-control" id="addcontact-name-input" name="name" value="{{quiz.name}}" placeholder="Quiz nomini kiriitng">
+                                                                    </div>
+                                              
+                                                                </div>
+                                                            </div><!-- end modalbody -->
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light w-sm" data-bs-dismiss="modal">Yopish</button>
+                                                                <button type="submit" class="btn btn-primary w-sm">Yaratish</button>
+                                                            </div>
+                                                            <!-- end modalfooter -->
+                                                        </form>
+                                                        </div>
+                                                        <!-- end modal content -->
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="quizlinkmodal{{quiz.id}}" tabindex="-1" aria-labelledby="addContactModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog  modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="addContactModalLabel">Quiz ulashish</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body p-4">
+                                                                <div>
+                                                                    <div class="mb-3">
+                                                                        <!-- <label for="addcontact-name-input" class="form-label">Nomi</label> -->
+                                                                        <input type="text" class="form-control" id="myInput{{quiz.id}}"  value="127.0.0.1:8000/{{quiz.code}}" >
+                                                                        
+                                                                        <script>
+                                                                            function myFunction{{quiz.code}}() {
+                                                                              // Get the text field
+                                                                              var copyText = document.getElementById("myInput{{quiz.id}}");
+                                                                            
+                                                                              // Select the text field
+                                                                              copyText.select();
+                                                                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                                                                            
+                                                                              // Copy the text inside the text field
+                                                                              navigator.clipboard.writeText(copyText.value);
+                                                                              
+                                                                              // Alert the copied text
+                                                                            //   alert("Copied the text: " + copyText.value);
+                                                                            }
+                                                                            </script>
+                                                                    </div>
+                                              
+                                                                </div>
+                                                            </div><!-- end modalbody -->
+                                                            <div class="modal-footer">
+                                                                <button type="submit" onclick="myFunction{{quiz.code}}()" class="btn btn-primary" data-bs-dismiss="modal">Nusxalash</button>
+                                                                <button type="button" class="btn btn-light w-sm" data-bs-dismiss="modal">Yopish</button>
+                                                            </div>
+                                                            <!-- end modalfooter -->
+                                                        
+                                                        </div>
+                                                        <!-- end modal content -->
                                                     </div>
                                                 </div>
                                                 <!-- end card body -->

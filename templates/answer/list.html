@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block content %}
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row mb-2">
+                                            <div class="col-sm-4">
+                                                <div class="search-box me-2 mb-2 d-inline-block">
+                                                    <div class="position-relative">
+                                                        <input type="text" class="form-control" placeholder="Search...">
+                                                        <i class="bx bx-search search-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+        
+                                        <div class="table-responsive">
+                                            <table class="table align-middle table-nowrap table-check">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th style="width: 20px;" class="align-middle">
+                                                            <div class="form-check font-size-16">
+                                                                <input class="form-check-input" style="border: 1px solid #9a76ab;" type="checkbox" id="checkAll">
+                                                                <label class="form-check-label" for="checkAll"></label>
+                                                            </div>
+                                                        </th>
+                                                        <th class="align-middle">T/r</th>
+                                                        <th class="align-middle">Ismi</th>
+                                                        <th class="align-middle">Telefon</th>
+                                                        <th class="align-middle">Email</th>
+                                                        <th class="align-middle">Quiz</th>
+                                                        <th class="align-middle">Batafsil</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for answer in answers %}
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-check font-size-16">
+                                                                <input class="form-check-input" style="border: 1px solid #9a76ab;" type="checkbox" id="orderidcheck01">
+                                                                <label class="form-check-label" for="orderidcheck01"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td><a href="javascript: void(0);" class="text-body fw-bold">{{forloop.counter}}</a> </td>
+                                                        <td>{{answer.username}}</td>
+                                                        <td>
+                                                            {{answer.phone}}
+                                                        </td>
+                                                        <td>
+                                                            {{answer.email}}
+                                                        </td>
+                                                        <td>{{answer.quiz.name}}</td>
+                                                        <td>
+                                                            <!-- Button trigger modal -->
+                                                            <a href="{% url 'answer_detail' answer.code %}" type="button" class="btn btn-primary btn-sm btn-rounded">
+                                                                Batafsil
+                                                            </a>
+                                                        </td>
+                                                      
+                                                    </tr>
+                                                    
+                                                    {% endfor %}
+    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <ul class="pagination pagination-rounded justify-content-end mb-2">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="javascript: void(0);" aria-label="Previous">
+                                                    <i class="mdi mdi-chevron-left"></i>
+                                                </a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="javascript: void(0);">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="javascript: void(0);">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="javascript: void(0);">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="javascript: void(0);">4</a></li>
+                                            <li class="page-item"><a class="page-link" href="javascript: void(0);">5</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="javascript: void(0);" aria-label="Next">
+                                                    <i class="mdi mdi-chevron-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                        
+                    </div> <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+
+              
+                
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <script>document.write(new Date().getFullYear())</script> &copy; Vuesy.
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="text-sm-end d-none d-sm-block">
+                                    Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <!-- end main content-->
+
+        </div>
+        <!-- END layout-wrapper -->
+{% endblock %}
