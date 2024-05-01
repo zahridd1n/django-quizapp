@@ -8,6 +8,7 @@ urlpatterns = [
     path('quiz-delete/<str:code>/', views.quiz_delete, name='quiz_delete'),
     path('quiz-detail/<str:code>/', views.quiz_detail, name='quiz_detail'),
     path('question_create/', views.question_create, name='question_create'),
+    path('options_create/<str:code>', views.options_create, name='options_create'),
     path('question_edit/<str:code>', views.question_edit, name='question_edit'),
     path('question_detail/<str:code>', views.question_detail, name='question_detail'),
     path('question_delete/<str:code>', views.question_delete, name='question_delete'),

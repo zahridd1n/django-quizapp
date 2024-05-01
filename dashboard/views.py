@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from quiz import forms
 
 
 def quiz_list(request):
@@ -15,14 +16,17 @@ def quiz_list(request):
 
 @login_required(login_url='sign_in')
 def quiz_create(request):
+    form = forms.QuizForm()
     if request.method == 'POST':
-        name = request.POST.get('name')
-        author = request.user
-        quiz = models.Quiz.objects.create(
-            name=name,
-            author=author
-        )
-        return redirect('quiz_list')
+        form = forms.QuizForm(request.POST)
+        if form.is_valid():
+            quiz = form.save(commit=False)
+            quiz.author = request.user
+            quiz.save()
+            return redirect('quiz_list')
+        else:
+            form = forms.QuizForm()
+    return render(request, 'quiz/quiz_create.html', {'form': form})
 
 
 @login_required(login_url='sign_in')
@@ -55,15 +59,27 @@ def quiz_detail(request, code):  # + question list ham hisoblanadi bu funksiya
 @login_required(login_url='sign_in')
 def question_create(request):
     quizzes = models.Quiz.objects.filter(author=request.user)
+
+    question = forms.QuestionForm( user=request.user)
     context = {
         'quizzes': quizzes,
+        'question': question,
     }
     if request.method == 'POST':
-        quiz = models.Quiz.objects.get(code=request.POST.get('code'))
-        question = models.Question.objects.create(
-            name=request.POST['name'],
-            quiz=quiz
-        )
+        question = forms.QuestionForm(request.POST, user=request.user)
+
+        if question.is_valid():
+            q = question.save()
+            question = forms.QuestionForm()
+
+            return redirect('options_create', q.code)
+
+    return render(request, 'quiz/question_create.html', context)
+
+
+def options_create(request, code):
+    question = models.Question.objects.get(code=code)
+    if request.method == 'POST':
         models.Option.objects.create(
             name=request.POST.get('correct_option'),
             question=question,
@@ -75,8 +91,12 @@ def question_create(request):
                 question=question,
                 is_correct=False
             )
-        return redirect('quiz_detail', quiz.code)
-    return render(request, 'quiz/question_create.html', context)
+
+        return redirect('quiz_detail', question.quiz.code)
+    context = {
+        'question': question,
+    }
+    return render(request, 'quiz/option_create.html', context)
 
 
 @login_required(login_url='sign_in')

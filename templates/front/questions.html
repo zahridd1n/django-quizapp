@@ -34,7 +34,7 @@
                                             {% for question in questions %}
                                             <div class="text-muted" style="margin:2px 18px;">
 
-                                                <h4 style="border-top: 5px solid #3326e7;border-radius: 5px;padding: 15px;margin-top: 25px; background-color: rgb(234, 234, 234);">{{forloop.counter}}. {{question.name}}</h4>
+                                                <h4 style="border-top: 5px solid #3326e7;border-radius: 5px;padding: 15px;margin-top: 25px; background-color: rgb(234, 234, 234);">{{forloop.counter}}. {{question.name|safe}}</h4>
                                                 <ul class="ps-3">
                                                     {% for i in question.options %}
                                                     <div class="radio" style="margin:20px 5px ; border-left: 4px solid rgb(13, 228, 13); border-radius: 5px;padding-left: 10px;">

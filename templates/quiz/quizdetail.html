@@ -57,7 +57,7 @@
                                                         <td><a href="javascript: void(0);" class="text-body fw-bold">{{forloop.counter}}</a> </td>
                                                         <td>{{question.id}}</td>
                                                         <td style="width: 450px;">
-                                                            {{question.name}}
+                                                            {{question.name|safe}}
                                                         </td>
                                                         <td>
                                                             <!-- Button trigger modal -->

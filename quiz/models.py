@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from random import sample
-import string
+import string, random
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import  RichTextUploadingField
+
 
 
 class CodeGenerate(models.Model):
@@ -25,7 +28,7 @@ class CodeGenerate(models.Model):
 
 
 class Quiz(CodeGenerate):
-    name = models.CharField(max_length=255)
+    name = RichTextUploadingField()
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
@@ -37,7 +40,7 @@ class Quiz(CodeGenerate):
 
 
 class Question(CodeGenerate):
-    name = models.CharField(max_length=155)
+    name = RichTextUploadingField()
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -45,7 +48,10 @@ class Question(CodeGenerate):
 
     @property
     def options(self):
-        return Option.objects.filter(question=self)
+        option = Option.objects.filter(question=self)
+        option_list = list(option)
+        random.shuffle(option_list)
+        return option_list
 
     @property
     def correct_option(self):

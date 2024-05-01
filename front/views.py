@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from quiz import models
+import random
 
 
 def index(request):
@@ -9,9 +10,12 @@ def index(request):
 def quiz_detail(request, code):
     quiz = models.Quiz.objects.get(code=code)
     questions = models.Question.objects.filter(quiz=quiz)
+
+    questions_list = list(questions)
+    random.shuffle(questions_list)
     context = {
         'quiz': quiz,
-        'questions': questions,
+        'questions': questions_list,
     }
     if request.method == 'POST':
         answer = models.Answer.objects.create(

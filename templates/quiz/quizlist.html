@@ -23,7 +23,7 @@
                                             <div class="d-flex flex-wrap align-items-start justify-content-md-end mt-2 mt-md-0 gap-2 mb-3">
                                               
                                                 <div>
-                                                    <a href="#" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2" data-bs-toggle="modal" data-bs-target="#addContactModal"><i class="uil uil-plus me-1"></i>
+                                                    <a href="{% url 'quiz_create' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2" ><i class="uil uil-plus me-1"></i>
                                                         Quiz qo'shish
                                                     </a>
                                                 </div>
@@ -41,47 +41,7 @@
                                         </div><!-- end col -->
                                     </div><!-- end row -->
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="addContactModal" tabindex="-1" aria-labelledby="addContactModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog  modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <form method="post" action="{% url 'quiz_create' %}">{% csrf_token %}
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="addContactModalLabel">Quiz Yaratish</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body p-4">
-                                                    <div>
-                                                        <div class="mb-3">
-                                                            <label for="addcontact-name-input" class="form-label">Nomi</label>
-                                                            <input type="text" class="form-control" id="addcontact-name-input" name="name" placeholder="Quiz nomini kiriitng">
-                                                        </div>
-                                                        <!-- <div class="mb-3">
-                                                            <label for="addcontact-designation-input" class="form-label">Designation</label>
-                                                            <input type="text" class="form-control" id="addcontact-designation-input" placeholder="Enter Designation">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="addcontact-file-input" class="form-label">User Image</label>
-                                                            <input type="file" class="form-control" id="addcontact-file-input">
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <label for="addcontact-email-input" class="form-label">Email</label>
-                                                            <input type="email" class="form-control" id="addcontact-email-input" placeholder="Enter Email">
-                                                        </div> -->
-                                                    </div>
-                                                </div><!-- end modalbody -->
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light w-sm" data-bs-dismiss="modal">Yopish</button>
-                                                    <button type="submit" class="btn btn-primary w-sm">Yaratish</button>
-                                                </div>
-                                                <!-- end modalfooter -->
-                                            </form>
-                                            </div>
-                                            <!-- end modal content -->
-                                        </div>
-                                    </div>
-                                    <!-- end modal -->
+                                 
                                     
                                     <div class="row" >
                                     {% for quiz in quizzes %} 
@@ -91,7 +51,7 @@
                                                     <div class="d-flex align-items-start">
                                                         <div class="flex-grow-1 overflow-hidden">
                                                             <h5 class="font-size-15 mb-1 text-truncate"><a
-                                                                    href="{% url 'quiz_detail' quiz.code %}" class="text-dark" >{{quiz.name}}</a></h5>
+                                                                    href="{% url 'quiz_detail' quiz.code %}" class="text-dark" >{{quiz.name|safe}}</a></h5>
                                                                 <span class="badge badge-soft-success mb-0" >savolar soni: {{quiz.questions_count}}</span>
                                                            
                                                         </div>

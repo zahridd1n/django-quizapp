@@ -16,7 +16,7 @@
                                         <h2 class="card-title mb-4" >Savol haqida batafsil va variantlari</h2>
 
                                         <div class="text-muted">
-                                            <h4 style="border-top: 5px solid #3326e7;border-radius: 5px;padding: 8px;">Savol : {{question.name}}</h4>
+                                            <h4 style="border-top: 5px solid #3326e7;border-radius: 5px;padding: 8px;">Savol : {{question.name|safe}}</h4>
                                             <ul class="ps-3">
                                                 {% for i in options %}
                                                 <div style="margin:10px 5px ; border-left: 4px solid rgb(13, 228, 13); border-radius: 5px;"><li class="py-1" style="font-size: 20px; margin:0 30px;">{{i.name}} <span style="margin-left: 30px;" class="badge badge-soft-success mb-0">{{i.is_correct}}</span></li></div>
