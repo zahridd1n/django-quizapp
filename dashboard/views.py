@@ -4,6 +4,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from quiz import forms
+from django.http import HttpResponse
+from openpyxl import Workbook
 
 
 def quiz_list(request):
@@ -60,7 +62,7 @@ def quiz_detail(request, code):  # + question list ham hisoblanadi bu funksiya
 def question_create(request):
     quizzes = models.Quiz.objects.filter(author=request.user)
 
-    question = forms.QuestionForm( user=request.user)
+    question = forms.QuestionForm(user=request.user)
     context = {
         'quizzes': quizzes,
         'question': question,
@@ -153,8 +155,11 @@ def question_detail(request, code):
 @login_required(login_url='sign_in')
 def answer_list(request, code):
     answers = models.Answer.objects.filter(quiz__code=code)
+    quiz = models.Quiz.objects.get(code=code)
     context = {
-        'answers': answers
+        'answers': answers,
+        'quiz': quiz,
+
     }
     return render(request, 'answer/list.html', context)
 
@@ -182,6 +187,38 @@ def answer_detail(request, code):
     }
 
     return render(request, 'answer/detail.html', context)
+
+
+def export_to_exel(request, code):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=natijalar.xlsx'
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = 'Natijalar'
+    quiz = models.Quiz.objects.get(code=code)
+
+    header = ['Ismi', 'Telefon', 'Email', 'savollar ', 'Tog\'ri ', 'xato ']
+    ws.append(header)
+    data = []
+    queryset = models.Answer.objects.filter(quiz=quiz)
+    for tr, item in enumerate(queryset):
+        correct = 0
+        for items in models.AnswerDetail.objects.filter(answer=item):
+            if items.user_answer.is_correct:
+                correct += 1
+
+        total = quiz.questions_count
+        wrong = total - correct
+
+        row = [item.username, item.phone, item.email, total, correct, wrong]
+        data.append(row)
+    sorted_data = sorted(data, key=lambda x: x[4], reverse=True)
+
+    for i in sorted_data:
+        ws.append(i)
+    wb.save(response)
+    return response
 
 
 # ------------AUTH------------------------

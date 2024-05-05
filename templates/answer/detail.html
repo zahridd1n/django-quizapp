@@ -16,7 +16,7 @@
                                                                     <div class="col">
                                                                         <div class="mt-md-0 py-3 px-4 mx-2">
                                                                             <p class="text-white-50 mb-2 text-truncate">Quiz </p>
-                                                                            <h6 class="text-white mb-0">{{answer.quiz.name}}</h6>
+                                                                            <h6 class="text-white mb-0">{{answer.quiz.name|safe}}</h6>
                                                                         </div>
                                                                     </div><!-- end col -->
                                                                     <div class="col">
@@ -90,7 +90,7 @@
                                             {% for answer in queryset %}
                                             <div class="text-muted" style="margin:2px 18px;">
 
-                                                <h4 style="border-top: 5px solid #3326e7;border-radius: 5px;padding: 15px;margin-top: 25px; background-color: rgb(234, 234, 234);">{{forloop.counter}}. {{answer.question.name}}</h4>
+                                                <h4 style="border-top: 5px solid #3326e7;border-radius: 5px;padding: 15px;margin-top: 25px; background-color: rgb(234, 234, 234);">{{forloop.counter}}. {{answer.question.name|safe}}</h4>
                                                 <ul class="ps-3">
                                                     {% if answer.is_correct  %}
                                                     <div class="radio" style="margin:20px 5px ; border-left: 4px solid rgb(13, 228, 13); border-radius: 5px;padding-left: 10px;">

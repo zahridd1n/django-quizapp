@@ -3,8 +3,7 @@ from django.contrib.auth.models import User
 from random import sample
 import string, random
 from ckeditor.fields import RichTextField
-from ckeditor_uploader.fields import  RichTextUploadingField
-
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class CodeGenerate(models.Model):

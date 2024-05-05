@@ -15,6 +15,7 @@ urlpatterns = [
     # -------------answer----------------
     path('answer-list/<str:code>/', views.answer_list, name='answer_list'),
     path('answer-detail/<str:code>', views.answer_detail, name='answer_detail'),
+    path('exel_export/<str:code>', views.export_to_exel, name='exel_export'),
     # ------------auth-----------------
     path('sig-up/', views.sign_up, name='sign_up'),
     path('sig-in/', views.sign_in, name='sign_in'),

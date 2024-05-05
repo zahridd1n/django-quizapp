@@ -12,8 +12,8 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="row mb-2">
-                                            <div class="col-sm-4">
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <div class="search-box me-2 mb-2 d-inline-block">
                                                     <div class="position-relative">
                                                         <input type="text" class="form-control" placeholder="Search...">
@@ -21,7 +21,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-2">
+                                                    <a href="{% url 'exel_export' quiz.code %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2" ><i class="uil uil-export me-1"></i>
+                                                       Exelga export
+                                                    </a>
+                                                </div>
+
                                         </div>
         
                                         <div class="table-responsive">
