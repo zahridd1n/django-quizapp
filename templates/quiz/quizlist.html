@@ -21,7 +21,7 @@
                                         </div><!-- end col -->
                                         <div class="col-md-6">
                                             <div class="d-flex flex-wrap align-items-start justify-content-md-end mt-2 mt-md-0 gap-2 mb-3">
-                                              
+
                                                 <div>
                                                     <a href="{% url 'quiz_create' %}" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2" ><i class="uil uil-plus me-1"></i>
                                                         Quiz qo'shish
@@ -41,10 +41,10 @@
                                         </div><!-- end col -->
                                     </div><!-- end row -->
 
-                                 
-                                    
+
+
                                     <div class="row" >
-                                    {% for quiz in quizzes %} 
+                                    {% for quiz in quizzes %}
                                         <div class="col-xl-4 col-sm-6" >
                                             <div class="card" style="border: 1px solid #4E3365; border-radius: 12px;">
                                                 <div class="card-body p-4" >
@@ -53,10 +53,10 @@
                                                             <h5 class="font-size-15 mb-1 text-truncate"><a
                                                                     href="{% url 'quiz_detail' quiz.code %}" class="text-dark" >{{quiz.name|safe}}</a></h5>
                                                                 <span class="badge badge-soft-success mb-0" >savolar soni: {{quiz.questions_count}}</span>
-                                                           
+
                                                         </div>
 
-                                                        
+
                                                         <div class="flex-shrink-0 dropdown">
                                                             <a class="text-body dropdown-toggle font-size-16" href="#"
                                                                 role="button" data-bs-toggle="dropdown"
@@ -72,7 +72,7 @@
                                                             </div>
                                                         </div><!-- end dropdown -->
                                                     </div>
-                                                   
+
                                                     <div class="pt-2">
                                                         <!-- <a type="button" data-bs-toggle="modal" data-bs-target="#editquizmodal{{quiz.id}}" class="btn btn-soft-primary  text-truncate"><i class="mdi mdi-file-document-edit me-1 align-middle"></i> Tahrirlash</a> -->
                                                         <!-- <a type="button" class="btn btn-soft-primary   text-truncate ms-2"><i class="mdi mdi-delete-empty me-1 align-middle"></i> O'chirish</a> -->
@@ -93,9 +93,9 @@
                                                                 <div>
                                                                     <div class="mb-3">
                                                                         <label for="addcontact-name-input" class="form-label">Nomi</label>
-                                                                        <input type="text" class="form-control" id="addcontact-name-input" name="name" value="{{quiz.name}}" placeholder="Quiz nomini kiriitng">
+                                                                        <input type="text" class="form-control" id="addcontact-name-input" name="name" value="{{quiz.name|safe}}" placeholder="Quiz nomini kiriitng">
                                                                     </div>
-                                              
+
                                                                 </div>
                                                             </div><!-- end modalbody -->
                                                             <div class="modal-footer">
@@ -111,7 +111,7 @@
                                                 <div class="modal fade" id="quizlinkmodal{{quiz.id}}" tabindex="-1" aria-labelledby="addContactModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog  modal-dialog-centered">
                                                         <div class="modal-content">
-                                                            
+
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="addContactModalLabel">Quiz ulashish</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -120,26 +120,26 @@
                                                                 <div>
                                                                     <div class="mb-3">
                                                                         <!-- <label for="addcontact-name-input" class="form-label">Nomi</label> -->
-                                                                        <input type="text" class="form-control" id="myInput{{quiz.id}}"  value="127.0.0.1:8000/{{quiz.code}}" >
-                                                                        
+                                                                        <input type="text" class="form-control" id="myInput{{quiz.id}}"  value="https://zahridd1n2.pythonanywhere.com/{{quiz.code}}" >
+
                                                                         <script>
                                                                             function myFunction{{quiz.code}}() {
                                                                               // Get the text field
                                                                               var copyText = document.getElementById("myInput{{quiz.id}}");
-                                                                            
+
                                                                               // Select the text field
                                                                               copyText.select();
                                                                               copyText.setSelectionRange(0, 99999); // For mobile devices
-                                                                            
+
                                                                               // Copy the text inside the text field
                                                                               navigator.clipboard.writeText(copyText.value);
-                                                                              
+
                                                                               // Alert the copied text
                                                                             //   alert("Copied the text: " + copyText.value);
                                                                             }
                                                                             </script>
                                                                     </div>
-                                              
+
                                                                 </div>
                                                             </div><!-- end modalbody -->
                                                             <div class="modal-footer">
@@ -147,7 +147,7 @@
                                                                 <button type="button" class="btn btn-light w-sm" data-bs-dismiss="modal">Yopish</button>
                                                             </div>
                                                             <!-- end modalfooter -->
-                                                        
+
                                                         </div>
                                                         <!-- end modal content -->
                                                     </div>

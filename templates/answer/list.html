@@ -29,7 +29,7 @@
                                                 </div>
 
                                         </div>
-        
+
                                         <div class="table-responsive">
                                             <table class="table align-middle table-nowrap table-check">
                                                 <thead class="table-light">
@@ -65,18 +65,18 @@
                                                         <td>
                                                             {{answer.email}}
                                                         </td>
-                                                        <td>{{answer.quiz.name}}</td>
+                                                        <td>{{answer.quiz.name|safe}}</td>
                                                         <td>
                                                             <!-- Button trigger modal -->
                                                             <a href="{% url 'answer_detail' answer.code %}" type="button" class="btn btn-primary btn-sm btn-rounded">
                                                                 Batafsil
                                                             </a>
                                                         </td>
-                                                      
+
                                                     </tr>
-                                                    
+
                                                     {% endfor %}
-    
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -102,13 +102,13 @@
                             </div>
                         </div>
                         <!-- end row -->
-                        
+
                     </div> <!-- container-fluid -->
                 </div>
                 <!-- End Page-content -->
 
-              
-                
+
+
                 <footer class="footer">
                     <div class="container-fluid">
                         <div class="row">
